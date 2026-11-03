@@ -1,0 +1,46 @@
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/espn"
+  to = "/.netlify/functions/espn-direct"
+  status = 200
+
+[[redirects]]
+  from = "/api/link/espn/league"
+  to = "/.netlify/functions/espn-league"
+  status = 200
+
+[[redirects]]
+  from = "/api/link/espn"
+  to = "/.netlify/functions/link-espn"
+  status = 200
+
+[[redirects]]
+  from = "/api/leagues"
+  to = "/.netlify/functions/leagues"
+  status = 200
+
+[[redirects]]
+  from = "/api/scores"
+  to = "/.netlify/functions/scores"
+  status = 200
+
+[[redirects]]
+  from = "/api/nfl-game"
+  to = "/.netlify/functions/nfl-game"
+  status = 200
+
+[[redirects]]
+  from = "/api/nfl"
+  to = "/.netlify/functions/nfl-scoreboard"
+  status = 200
+
+[[redirects]]
+  from = "/api/player-stats"
+  to = "/.netlify/functions/player-stats"
+  status = 200

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EFL Live — ESPN cookie link</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
+<style>
+  :root { --ink:#201e1d; --ground:#f3f2f2; --accent:#ec3013; --muted:#6e6a68; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--ground); color:var(--ink); font:500 15px/1.6 "Archivo",system-ui,sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:56px 28px 96px; }
+  h1 { font:800 34px/1.05 "Archivo",sans-serif; letter-spacing:-.02em; margin:0 0 10px; }
+  .kicker { font:800 10px "Archivo",sans-serif; letter-spacing:.18em; color:var(--accent); margin:0 0 14px; }
+  .lede { font:500 15px/1.6 "Archivo",sans-serif; color:var(--muted); margin:0 0 34px; max-width:56ch; text-wrap:pretty; }
+  .hr { height:2px; background:var(--ink); border:0; margin:34px 0; }
+  h2 { font:800 11px "Archivo",sans-serif; letter-spacing:.16em; margin:0 0 16px; }
+  ol { margin:0; padding-left:22px; }
+  li { margin-bottom:12px; max-width:60ch; text-wrap:pretty; }
+  code { font:600 13px ui-monospace,monospace; background:#fff; border:1px solid rgba(32,30,29,.2); padding:1px 5px; }
+  .drag { display:flex; align-items:center; gap:18px; background:#fff; border:2px solid var(--ink); padding:20px; margin:22px 0 0; flex-wrap:wrap; }
+  a.bm { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font:800 11px "Archivo",sans-serif;
+         letter-spacing:.14em; padding:15px 18px; cursor:grab; }
+  a.bm:hover { background:#c8280f; }
+  a.bm:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+  .drag p { margin:0; font:600 12px/1.5 "Archivo",sans-serif; color:var(--muted); flex:1; min-width:220px; }
+  .note { border-left:3px solid var(--accent); background:#fff; padding:14px 16px; font:500 13px/1.6 "Archivo",sans-serif; margin:22px 0 0; }
+  .fields { display:grid; gap:14px; margin-top:22px; }
+  label { display:block; font:800 9px "Archivo",sans-serif; letter-spacing:.14em; color:var(--muted); margin-bottom:6px; }
+  input { width:100%; background:#fff; border:1px solid var(--ink); padding:12px; font:600 12px ui-monospace,monospace; color:var(--ink); }
+  input:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  button { background:var(--accent); color:#fff; border:0; padding:15px 18px; font:800 11px "Archivo",sans-serif;
+           letter-spacing:.14em; cursor:pointer; justify-self:start; }
+  button:hover { background:#c8280f; }
+  footer { font:500 12px/1.6 "Archivo",sans-serif; color:var(--muted); margin-top:34px; }
+  a { color:var(--accent); } a:hover { color:#ae1800; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">EFL LIVE</p>
+  <h1>Link ESPN in one click</h1>
+  <p class="lede">ESPN has no sign-in API for fantasy, so nothing can redirect you to ESPN and come back with a token. What does work: the two session cookies your own browser already holds. This page copies them into the app for you.</p>
+
+  <hr class="hr">
+
+  <div class="note">A bookmarklet does not read your other tabs. It is a bookmark whose address is a small program; it only runs on the page you are looking at when you tap it. So the order matters: be <em>on</em> fantasy.espn.com, then tap the bookmark.</div>
+
+  <h2>IPHONE — SAFARI, ONE-TIME SETUP</h2>
+  <ol>
+    <li>Tap <strong>COPY THE BOOKMARKLET</strong> below. That puts the program on your clipboard.</li>
+    <li>In Safari, go to any page and tap the share icon → <strong>Add Bookmark</strong>. Name it <code>ESPN cookies</code>, save it to <strong>Favorites</strong>.</li>
+    <li>Tap the bookmarks icon (open book) → <strong>Edit</strong> → tap the <code>ESPN cookies</code> bookmark.</li>
+    <li>Clear the <strong>address</strong> field and paste what you copied. It must start with <code>javascript:</code>. Tap <strong>Done</strong>.</li>
+  </ol>
+  <div class="fields">
+    <button id="copy">COPY THE BOOKMARKLET</button>
+    <div>
+      <label for="src">OR COPY THIS BY HAND</label>
+      <input id="src" readonly onclick="this.select()">
+    </div>
+  </div>
+
+  <hr class="hr">
+
+  <h2>IPHONE — EVERY TIME YOU LINK</h2>
+  <ol>
+    <li>Open <a href="https://fantasy.espn.com" target="_blank" rel="noopener">fantasy.espn.com</a> in Safari and confirm you are signed in (your team should show).</li>
+    <li>Tap the address bar and start typing <code>ESPN cookies</code> — the bookmark appears in the suggestions. Tap it.</li>
+    <li>You land back in the app with both cookies filled in. Import your leagues.</li>
+  </ol>
+  <div class="note">Safari sometimes will not run a bookmarklet tapped from the bookmarks list — typing its name in the address bar and choosing it always works.</div>
+
+  <hr class="hr">
+
+  <h2>DESKTOP</h2>
+  <div class="drag">
+    <a class="bm" id="bm" href="#">GET ESPN COOKIES</a>
+    <p>Drag this onto your bookmarks bar, open fantasy.espn.com, then click it.</p>
+  </div>
+  <div class="note">If it says a cookie is unreadable, this browser is marking <code>espn_s2</code> as HttpOnly. Copy both values from developer tools (Application → Cookies → espn.com) and use the paste fields below.</div>
+
+  <hr class="hr">
+
+  <h2>MANUAL — PASTE INSTEAD</h2>
+  <div class="fields">
+    <div>
+      <label for="swid">SWID (KEEP THE BRACES)</label>
+      <input id="swid" placeholder="{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}" autocomplete="off" spellcheck="false">
+    </div>
+    <div>
+      <label for="s2">ESPN_S2</label>
+      <input id="s2" placeholder="AEB…" autocomplete="off" spellcheck="false">
+    </div>
+    <button id="go">OPEN THE APP WITH THESE</button>
+  </div>
+
+  <footer>The cookies travel in the page address to the app, which keeps them on your device and sends them to your own server only to relay reads to ESPN. They are never stored in this page. <a href="./">Back to the app</a>.</footer>
+</main>
+
+<script>
+(function () {
+  var origin = location.origin + location.pathname.replace(/[^/]*$/, '');
+
+  // Built as a string so the bookmarklet carries the app URL it was dragged from.
+  var src = "(function(){" +
+    "var c=document.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):''};" +
+    "if(!/espn\\.com$/.test(location.hostname.replace(/^www\\./,''))&&location.hostname.indexOf('espn.com')<0){alert('Open an espn.com tab first, then click this.');return}" +
+    "var s=g('SWID'),t=g('espn_s2');" +
+    "if(!s||!t){alert('Could not read '+(!s?'SWID':'espn_s2')+' from this page. Copy it from developer tools instead.');return}" +
+    "location.href=" + JSON.stringify(origin) + "+'#espn='+encodeURIComponent(btoa(JSON.stringify({swid:s,espn_s2:t})));" +
+    "})()";
+
+  var href = 'javascript:' + encodeURIComponent(src);
+  document.getElementById('bm').href = href;
+  document.getElementById('src').value = href;
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var f = document.getElementById('src');
+    var done = function () { var b = document.getElementById('copy'); b.textContent = 'COPIED — NOW ADD THE BOOKMARK'; };
+    if (navigator.clipboard) { navigator.clipboard.writeText(href).then(done, function () { f.select(); }); return; }
+    f.select(); document.execCommand('copy'); done();
+  });
+
+  document.getElementById('go').addEventListener('click', function () {
+    var swid = document.getElementById('swid').value.trim();
+    var s2 = document.getElementById('s2').value.trim();
+    if (!swid || !s2) { alert('Both values are needed.'); return; }
+    location.href = origin + '#espn=' + encodeURIComponent(btoa(JSON.stringify({ swid: swid, espn_s2: s2 })));
+  });
+})();
+</script>
+</body>
+</html>
