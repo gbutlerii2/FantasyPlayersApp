@@ -154,7 +154,7 @@ exports.leagueScores = async (c, { season, leagueId, teamId, week }) => {
     // Every player on my team (bench included) so the client can mark "mine" in the pool.
     roster: entriesFor(meSide).map(e => e.playerId || (e.playerPoolEntry && e.playerPoolEntry.id)).filter(Boolean),
     team: { name: nameOf(teams[teamId]), points: round(meSide.totalPointsLive != null ? meSide.totalPointsLive : meSide.totalPoints), projected: round(meSide.totalProjectedPointsLive), starters: starters(meSide) },
-    opponent: { name: nameOf(teams[oppSide.teamId]), points: round(oppSide.totalPointsLive != null ? oppSide.totalPointsLive : oppSide.totalPoints), projected: round(oppSide.totalProjectedPointsLive) }
+    opponent: { name: nameOf(teams[oppSide.teamId]), points: round(oppSide.totalPointsLive != null ? oppSide.totalPointsLive : oppSide.totalPoints), projected: round(oppSide.totalProjectedPointsLive), starters: starters(oppSide) }
   };
 };
 
