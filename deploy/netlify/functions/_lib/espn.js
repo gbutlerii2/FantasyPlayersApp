@@ -154,8 +154,32 @@ exports.leagueScores = async (c, { season, leagueId, teamId, week }) => {
     // Every player on my team (bench included) so the client can mark "mine" in the pool.
     roster: entriesFor(meSide).map(e => e.playerId || (e.playerPoolEntry && e.playerPoolEntry.id)).filter(Boolean),
     team: { name: nameOf(teams[teamId]), points: round(meSide.totalPointsLive != null ? meSide.totalPointsLive : meSide.totalPoints), projected: round(meSide.totalProjectedPointsLive), starters: starters(meSide) },
-    opponent: { name: nameOf(teams[oppSide.teamId]), points: round(oppSide.totalPointsLive != null ? oppSide.totalPointsLive : oppSide.totalPoints), projected: round(oppSide.totalProjectedPointsLive) }
+    opponent: { name: nameOf(teams[oppSide.teamId]), points: round(oppSide.totalPointsLive != null ? oppSide.totalPointsLive : oppSide.totalPoints), projected: round(oppSide.totalProjectedPointsLive), starters: starters(oppSide) },
+    // Every matchup in the league this week, for the league scoreboard popup. Starters
+    // carry only their NFL team id and an out flag: enough for the client to count
+    // played / in play / not yet played against the NFL scoreboard it already loads.
+    matchups: (d.schedule || [])
+      .filter(m => m.matchupPeriodId === match.matchupPeriodId)
+      .map(m => ({ home: sideLite(m.home), away: sideLite(m.away) }))
+      .filter(m => m.home || m.away)
   };
+
+  function sideLite(side) {
+    if (!side || side.teamId == null) return null;
+    const t = teams[side.teamId] || {};
+    return {
+      teamId: side.teamId,
+      name: nameOf(t),
+      abbrev: t.abbrev || '',
+      points: round(side.totalPointsLive != null ? side.totalPointsLive : side.totalPoints) || 0,
+      starters: entriesFor(side)
+        .filter(e => STARTING.indexOf(e.lineupSlotId) >= 0)
+        .map(e => {
+          const pl = (e.playerPoolEntry && e.playerPoolEntry.player) || {};
+          return { proTeamId: pl.proTeamId, out: pl.injuryStatus === 'OUT' };
+        })
+    };
+  }
 };
 
 // The league's real starting lineup shape, e.g. ['QB','RB','RB','RB','WR','WR','WR','TE','DST','K']
